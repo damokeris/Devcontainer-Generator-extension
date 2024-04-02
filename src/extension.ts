@@ -3,8 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const serviceCommands: { [key: string]: string } = {
-	'Java 17': `# Install OpenJDK 17\nRUN apt-get install -y openjdk-17-jdk\n`,
-	'MySQL 8.0': `# Install MySQL Server\nRUN apt-get update && apt-get install -y mysql-server-8.0\n`,
+	'Java 17': `# Install OpenJDK 17\nRUN apt install -y openjdk-17-jdk\n`,
+	'MySQL 8.0': `# Install MySQL Server8.0\nRUN apt install -y mysql-server-8.0\nCMD ["service", "mysql", "start"]\n`,
+	'Maven': `# Install Maven:latest 17\nRUN apt install -y maven\n`,
 };
 
 
@@ -41,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// 生成 Dockerfile 内容
-		let dockerfileContent = `FROM ubuntu:latest\n`;
+		let dockerfileContent = `FROM ubuntu:latest\nRUN echo 'root:123456' | chpasswd\nRUN apt-get update && apt-get upgrade -y\n`;
 		if (selectedServices.length > 0) {
 			selectedServices.forEach(service => {
 				dockerfileContent += serviceCommands[service];
