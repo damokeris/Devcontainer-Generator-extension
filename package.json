@@ -1,5 +1,6 @@
 {
   "name": "devcontainer-generator",
+  "publisher": "Damokeris",
   "displayName": "Devcontainer-Generator",
   "description": "create a development container",
   "version": "0.1.0",
